@@ -1,0 +1,396 @@
+/* MoviesPage.css - With Video Portal */
+
+/* Shared Base Styles */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    z-index: 1000;
+}
+
+.stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    width: 3px;
+    height: 3px;
+    animation: twinkle 5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+}
+
+/* Movies Page Specific */
+.movies-page {
+    padding-top: 120px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.movies-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+#movieSearch {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    border: none;
+    width: 350px;
+    max-width: 90%;
+    background-color: #222;
+    color: white;
+}
+
+.category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.tab {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1rem;
+}
+
+.tab.active,
+.tab:hover {
+    background-color: #6c63ff;
+    transform: translateY(-2px);
+}
+
+.carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 40px;
+    margin-bottom: 3rem;
+}
+
+.movie-carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 25px;
+    padding: 25px 0;
+}
+
+.movie-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s;
+}
+
+.carousel-btn:hover {
+    background-color: #6c63ff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.left {
+    left: 15px;
+}
+
+.carousel-btn.right {
+    right: 15px;
+}
+
+/* Movie Cards */
+.movie-card {
+    flex: 0 0 auto;
+    width: 200px;
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.movie-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.6);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease-in-out;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent 70%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    padding: 25px;
+}
+
+.movie-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card:hover .overlay {
+    opacity: 1;
+}
+
+.movie-card:hover img {
+    transform: scale(1.1);
+}
+
+/* Movie Details Modal - Video Version */
+.movie-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1200px;
+    height: 70vh;
+    background-color: #141414;
+    border-radius: 10px;
+    z-index: 2000;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.movie-modal.active {
+    display: flex;
+}
+
+.movie-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1500;
+    display: none;
+}
+
+.movie-modal-overlay.active {
+    display: block;
+}
+
+.movie-modal-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 30px;
+}
+
+.movie-modal-video-container {
+    width: 60%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.movie-modal-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-modal-details {
+    width: 40%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie-modal-title {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.movie-modal-genre {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    color: #6c63ff;
+    text-transform: capitalize;
+}
+
+.movie-modal-quote {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    color: #ddd;
+    font-style: italic;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .movie-modal-title {
+        font-size: 2.2rem;
+    }
+    .movie-modal-genre {
+        font-size: 1.5rem;
+    }
+    .movie-modal-quote {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .movies-page {
+        padding-top: 110px;
+        max-width: 95%;
+    }
+    
+    .movies-header {
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+    }
+    
+    #movieSearch {
+        width: 320px;
+        padding: 10px 20px;
+    }
+    
+    .tab {
+        padding: 10px 20px;
+    }
+    
+    .carousel-container {
+        padding: 0 30px;
+    }
+    
+    .movie-card {
+        width: 180px;
+        height: 270px;
+    }
+    
+    .movie-modal {
+        width: 95%;
+        height: 80vh;
+        flex-direction: column;
+        padding: 15px;
+    }
+    
+    .movie-modal-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .movie-modal-video-container {
+        width: 100%;
+        height: 50%;
+    }
+    
+    .movie-modal-details {
+        width: 100%;
+        height: 50%;
+        padding: 10px;
+    }
+    
+    .movie-modal-title {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .movie-modal-genre {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .movie-modal-quote {
+        font-size: 1.1rem;
+        padding: 10px;
+    }
+    
+    .close-modal {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .movie-modal-title {
+        font-size: 1.5rem;
+    }
+    .movie-modal-genre {
+        font-size: 1.1rem;
+    }
+    .movie-modal-quote {
+        font-size: 1rem;
+    }
+}
